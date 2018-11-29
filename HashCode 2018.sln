@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HashCode 2018", "HashCode 2018\HashCode 2018.vcxproj", "{2E7D556C-DDBE-48B0-992E-9CC9AEB14ECC}"
 EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
