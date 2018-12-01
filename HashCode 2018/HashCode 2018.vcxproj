@@ -115,6 +115,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Batiment.cpp" />
+    <ClCompile Include="Carte.cpp" />
+    <ClCompile Include="Solution.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BatimentResidentiel.h" />
+    <ClInclude Include="Batiment.h" />
+    <ClInclude Include="BatimentUtilitaire.h" />
+    <ClInclude Include="Carte.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
