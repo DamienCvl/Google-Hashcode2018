@@ -18,5 +18,6 @@ public:
 	~Batiment();													//Destructeur par défaut
 
 	virtual void ajouterBrique(pair<int, int>);						//Ajoute un # du fichier de lecture
+	virtual void setCoordonees(pair<int, int>);						//Ajout de la coordonees du batiment
 	virtual void toString();										//Affichage du batiment
 };

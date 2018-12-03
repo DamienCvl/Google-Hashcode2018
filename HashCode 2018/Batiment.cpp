@@ -34,9 +34,14 @@ void Batiment::ajouterBrique(pair<int, int> br)
 	it = this->briques.insert(it, br);
 }
 
+void Batiment::setCoordonees(pair<int, int> c)
+{
+	this->coordonees = c;
+}
+
 void Batiment::toString()
 {
-	cout << "\nPrinting Matrix : \n";
+	cout << "\Affichage du Batiment : \n";
 
 	vector<int> donnees(this->largeur, 0);
 	vector<vector<int>> matrice(this->hauteur, donnees);	//Creation de la matrice
