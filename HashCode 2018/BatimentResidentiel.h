@@ -1,4 +1,3 @@
-#pragma once
 #include <vector>
 
 #include "Batiment.h"
@@ -11,7 +10,7 @@ private:
 	int capacite;
 
 public:
-	BatimentResidentiel();									//Constructeur par défaut
+	BatimentResidentiel(const int hauteur, const int largeur, pair<int, int> coord, const int capacite);		//Constructeur par défaut
 	BatimentResidentiel(const BatimentResidentiel &);		//Constructeur de recopie
 	~BatimentResidentiel();									//Destructeur par défaut
 };

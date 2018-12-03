@@ -116,6 +116,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Batiment.cpp" />
+    <ClCompile Include="BatimentResidentiel.cpp" />
+    <ClCompile Include="BatimentUtilitaire.cpp" />
     <ClCompile Include="Carte.cpp" />
     <ClCompile Include="Solution.cpp" />
   </ItemGroup>

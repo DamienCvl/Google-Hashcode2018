@@ -6,16 +6,17 @@ using namespace std;
 class Batiment {
 
 private:
-	vector<vector <bool>> schema;
-	int * coordonees;
+	vector<pair<int, int>> briques;
+	pair<int, int> coordonees;
 	int hauteur;
 	int largeur;
 
 public:
-	Batiment(const int &, const int &, int *);								//Constructeur par défaut
-	Batiment(const Batiment &);												//Constructeur de recopie
-	~Batiment();															//Destructeur par défaut
+	Batiment();														//Constructeur par défaut
+	Batiment(const int, const int, pair<int, int>);					//Constructeur
+	Batiment(const Batiment &);										//Constructeur de recopie
+	~Batiment();													//Destructeur par défaut
 
-	virtual void ajouterBrique(const int &, const int &, const bool &);
-	virtual void toString();												//Affichage du Batiment
+	virtual void ajouterBrique(pair<int, int>);						//Ajoute un # du fichier de lecture
+	virtual void toString();										//Affichage du batiment
 };
