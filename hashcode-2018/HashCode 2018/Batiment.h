@@ -7,6 +7,7 @@ class Batiment {
 
 private:
 	vector<pair<int, int>> briques;
+	vector<Batiment> tableauBatiment;
 	pair<int, int> coordonees;
 	int hauteur;
 	int largeur;
@@ -20,4 +21,5 @@ public:
 	virtual void ajouterBrique(pair<int, int>);						//Ajoute un # du fichier de lecture
 	virtual void setCoordonees(pair<int, int>);						//Ajout de la coordonees du batiment
 	virtual void toString();										//Affichage du batiment
+	void insert(Batiment b);										//Inserer un Batiment a la liste 
 };

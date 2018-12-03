@@ -59,3 +59,8 @@ void Batiment::toString()
 		cout << endl;
 	}
 }
+
+void Batiment::insert(Batiment b)
+{
+	this->tableauBatiment.push_back(b);
+}
