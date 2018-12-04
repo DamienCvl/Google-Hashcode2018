@@ -11,11 +11,12 @@ using namespace std;
 
 Carte carte;
 //Liste des Batiments
-vector<Batiment> tableauBatiments;
+vector<Batiment> listeBatiments;
 //BatimentResidentiel * tableauBatiments;
 //BatimentUtilitaire * tableauBatiments;
 
 int main() {
+
 	Carte carte(10);
 	carte.toString();
 
@@ -30,7 +31,7 @@ int main() {
 	b1.toString();
 
 	b1.setCoordonees(pair<int, int>(0, 0));
-
+	listeBatiments.push_back(b1)
 	//Creer la fonction permettant d'ajouter un batiment à la liste de batiment
 	//tableauBatiments.insert(b1);
 

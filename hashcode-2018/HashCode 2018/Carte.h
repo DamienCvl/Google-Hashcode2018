@@ -16,4 +16,6 @@ public:
 	~Carte();					//Destructeur par défaut
 
 	void toString();			//Affichage de la Carte
+	void ajouterBatiment(vector<Batiment> v);
+
 };

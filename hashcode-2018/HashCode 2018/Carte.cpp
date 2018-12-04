@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "Batiment.h"
 #include "Carte.h"
 
 using namespace std;
@@ -39,5 +39,23 @@ void Carte::toString()
 			cout << schema[i][j] << " ";
 		}
 		cout << endl;
+	}
+}
+
+void Carte::ajouterBatiment(vector<Batiment> v)
+{
+	Batiment b;
+	pair<int, int> c;
+	int x, y;
+	for (int i = 0; i < v.size(); i++) {
+		b = v[i];
+		c = b.getCoordonees();
+		vector<pair<int, int>> briques = b.GetBriques();
+		for (int j = 0; j < briques.size(); j++) {
+			x = briques[j].first + c.first;
+			y = briques[j].second + c.second;
+			this->schema[x][y] = b.getSpecificite();
+
+		}
 	}
 }

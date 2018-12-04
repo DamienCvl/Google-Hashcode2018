@@ -60,7 +60,27 @@ void Batiment::toString()
 	}
 }
 
-void Batiment::insert(Batiment b)
+int Batiment::getLargeur()
 {
-	this->tableauBatiment.push_back(b);
+	return this->hauteur;
+}
+
+int Batiment::getHauteur()
+{
+	return this->largeur;
+}
+
+pair<int, int> Batiment::getCoordonees()
+{
+	return this->coordonees;
+}
+
+int Batiment::getSpecificite()
+{
+	return this->specificite;
+}
+
+vector<pair<int, int>> Batiment::GetBriques()
+{
+	return this->briques;
 }
