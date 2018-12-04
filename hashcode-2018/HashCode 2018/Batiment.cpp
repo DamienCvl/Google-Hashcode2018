@@ -12,6 +12,7 @@ Batiment::Batiment()
 
 Batiment::Batiment(const int h, const int l, pair<int, int> c)
 {
+	this->specificite = 1;
 	this->hauteur = h;
 	this->largeur = l;
 	this->coordonees = c;
@@ -21,6 +22,11 @@ Batiment::Batiment(const int h, const int l, pair<int, int> c)
 Batiment::Batiment(const Batiment & b)
 {
 	this->briques = b.briques;
+	this->specificite = b.specificite;
+	this->hauteur = b.hauteur;
+	this->largeur = b.largeur;
+	this->coordonees = b.coordonees;
+
 }
 
 Batiment::~Batiment()
@@ -41,7 +47,7 @@ void Batiment::setCoordonees(pair<int, int> c)
 
 void Batiment::toString()
 {
-	cout << "\Affichage du Batiment : \n";
+	cout << "\\Affichage du Batiment : \n";
 
 	vector<int> donnees(this->largeur, 0);
 	vector<vector<int>> matrice(this->hauteur, donnees);	//Creation de la matrice

@@ -50,10 +50,12 @@ void Carte::ajouterBatiment(vector<Batiment> v)
 	for (int i = 0; i < v.size(); i++) {
 		b = v[i];
 		c = b.getCoordonees();
+		cout << "Coor" << c.first << "   " << c.second << endl;
 		vector<pair<int, int>> briques = b.GetBriques();
 		for (int j = 0; j < briques.size(); j++) {
 			x = briques[j].first + c.first;
 			y = briques[j].second + c.second;
+			
 			this->schema[x][y] = b.getSpecificite();
 
 		}

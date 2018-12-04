@@ -18,11 +18,11 @@ vector<Batiment> listeBatiments;
 int main() {
 
 	Carte carte(10);
-	carte.toString();
 
 	cout << endl;
 
-	Batiment b1(3, 3, pair<int, int>(0, 1));
+	Batiment b1(3, 3, pair<int, int>(0, 2));
+
 	b1.ajouterBrique(pair<int, int>(0, 0));
 	b1.ajouterBrique(pair<int, int>(1, 0));
 	b1.ajouterBrique(pair<int, int>(1, 1));
@@ -30,10 +30,10 @@ int main() {
 	b1.ajouterBrique(pair<int, int>(2, 2));
 	b1.toString();
 
-	b1.setCoordonees(pair<int, int>(0, 0));
-	listeBatiments.push_back(b1)
-	//Creer la fonction permettant d'ajouter un batiment à la liste de batiment
-	//tableauBatiments.insert(b1);
+	b1.setCoordonees(pair<int, int>(0, 2));
 
-	//Creer la fonction permettant de placer nos batiments dans la liste de batiments sur la carte
+	listeBatiments.push_back(b1);
+	carte.ajouterBatiment(listeBatiments);
+	carte.toString();
+
 }
