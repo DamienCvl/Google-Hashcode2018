@@ -31,8 +31,8 @@ int main() {
 	b1.toString();
 
 	b1.setCoordonees(pair<int, int>(0, 0));
-	listeBatiments.push_back(b1)
-	//Creer la fonction permettant d'ajouter un batiment à la liste de batiment
+	listeBatiments.push_back(b1);
+	//Creer la fonction permettant d'ajouter un batiment Ã  la liste de batiment
 	//tableauBatiments.insert(b1);
 
 	//Creer la fonction permettant de placer nos batiments dans la liste de batiments sur la carte
