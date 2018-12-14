@@ -21,20 +21,21 @@ private:
   vector<pair<int, int>> briques;
   int hauteur;
   int largeur;
-  int specificite; // Taille ou capacite
+  int specificite; //  capacite ou type de batimnent utilitaire
 
 public:
   Batiment();                                    //Constructeur par d�faut
   Batiment(const int spe, const int, const int); //Constructeur
   Batiment(const Batiment &);                    //Constructeur de recopie
-  ~Batiment();                                   //Destructeur par d�faut
+  Batiment operator=(const Batiment &b);
+  ~Batiment(); //Destructeur par d�faut
 
   virtual void ajouterBrique(pair<int, int>); //Ajoute un # du fichier de lecture
   virtual void toString();                    //Affichage du batiment
   int getLargeur();
   int getHauteur();
-  int getSpecificite();
-  vector<pair<int, int>> GetBriques();
+  int getSpecificite() const;
+  vector<pair<int, int>> GetBriques() const;
 };
 
 class BatimentPlace
@@ -42,9 +43,11 @@ class BatimentPlace
 
 private:
   pair<int, int> coordonnees;
-  Batiment *refBatiment;
+  const Batiment *refBatiment;
 
 public:
-  BatimentPlace(Batiment *bat, int x, int y);
+  BatimentPlace(const Batiment *bat, int x, int y);
   pair<int, int> getCoordonnees();
+  vector<pair<int, int>> GetBriques() { return refBatiment->GetBriques(); };
+  int getSpecificite() { return refBatiment->getSpecificite(); };
 };

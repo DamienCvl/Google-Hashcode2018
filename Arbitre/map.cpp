@@ -1,3 +1,6 @@
+#pragma once
+#include "map.hpp"
+#include "../Solution/Batiment.hpp"
 #include <exception>
 #include <fstream>
 #include <iostream>
@@ -7,11 +10,33 @@
 
 using namespace std;
 
-bool placeBuildingAt(int x, int y, int buildingValue, const vector<pair<int, int>> &buildingScheme, vector<vector<int>> &map);
-
-ostream &operator<<(ostream &o, const vector<vector<int>> &m)
+bool Map ::placeBuildingAt(int x, int y, int buildingValue, const vector<pair<int, int>> &buildingScheme)
 {
-    for (auto itx = m.begin(); itx != m.end(); ++itx)
+    for (auto it = buildingScheme.begin(); it < buildingScheme.end(); ++it)
+    {
+        int xx = x + (*it).first;
+        int yy = y + (*it).second;
+
+        if (matrice[xx][yy] == 0)
+        {
+            matrice[xx][yy] = buildingValue;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    nbBatimentReel++;
+    return true;
+}
+
+Map ::~Map()
+{
+    //faire le destructeur
+}
+ostream &operator<<(ostream &o, const Map &m)
+{
+    for (auto itx = m.matrice.begin(); itx != m.matrice.end(); ++itx)
     {
         for (auto ity = (*itx).begin(); ity != (*itx).end(); ++ity)
         {
@@ -19,85 +44,10 @@ ostream &operator<<(ostream &o, const vector<vector<int>> &m)
         }
         o << '\n';
     }
-    /*
-    for (int x = 0; x < m.size(); x++){
-        for (int y  = 0; m[x].size(); y++) {
-            o << m[x][y] << " ";
-        }
-        o << "\n";
-    }
-    */
     return o;
 }
 
-vector<vector<int>> createSubmisionMap(const char *filename, vector<vector<pair<int, int>>> buildingScheme, int dimX, int dimY)
-{
-    ifstream submisionFile;
-    submisionFile.open(filename, ifstream::in);
-    int countBuilding = 0;
-
-    vector<vector<int>> map(dimX);
-    for (int i = 0; i < dimX; i++)
-    {
-        map[i] = vector<int>(dimY, 0);
-    }
-
-    if (!submisionFile)
-    {
-        cout << "Le fichier de solution n'a pas pu être ouvert !" << endl;
-    }
-    else
-    {
-        char line[100];
-        submisionFile.getline(line, 100);
-
-        char *tok = strtok(line, " ");
-        int numberOfBuildings = stoi(tok);
-
-        while (submisionFile.getline(line, 100))
-        {
-            tok = strtok(line, " ");
-            int buildingID = stoi(tok);
-
-            tok = strtok(NULL, " ");
-            int buildingX = stoi(tok);
-
-            tok = strtok(NULL, " ");
-            int buildingY = stoi(tok);
-
-            countBuilding++;
-            cout << buildingID << " " << buildingX << " " << buildingY << endl;
-
-            if (!placeBuildingAt(buildingX, buildingY, 1, buildingScheme[buildingID], map))
-            {
-                cout << "Il y a une erreur dans le fichier à la ligne " << countBuilding << endl;
-                throw(exception());
-            }
-        }
-    }
-    submisionFile.close();
-    return map;
-}
-
-bool placeBuildingAt(int x, int y, int buildingValue, const vector<pair<int, int>> &buildingScheme, vector<vector<int>> &map)
-{
-    for (auto it = buildingScheme.begin(); it < buildingScheme.end(); ++it)
-    {
-        int xx = x + (*it).first;
-        int yy = y + (*it).second;
-
-        if (map[xx][yy] == 0)
-        {
-            map[xx][yy] = buildingValue;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
+/*
 int main(int argc, char const *argv[])
 {
     vector<pair<int, int>> b1 = {pair<int, int>(0, 0),
@@ -120,9 +70,10 @@ int main(int argc, char const *argv[])
 
     vector<vector<pair<int, int>>> buildingScheme = {b1, b2, b3};
 
-    auto map = createSubmisionMap("./submisionFile.txt", buildingScheme, 100, 30);
+    Map("./submisionFile.txt", buildingScheme, 100, 30;
 
     ofstream outputFile("./resultFile.txt");
     outputFile << map << endl;
     return 0;
 }
+    */

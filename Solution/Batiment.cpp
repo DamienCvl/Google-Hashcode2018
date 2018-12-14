@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 
 #include "Batiment.hpp"
@@ -25,6 +26,12 @@ Batiment::Batiment(const Batiment &b)
 	specificite = b.specificite;
 	hauteur = b.hauteur;
 	largeur = b.largeur;
+	briques = b.briques;
+}
+
+Batiment Batiment::operator=(const Batiment &b)
+{
+	return Batiment(b);
 }
 
 Batiment::~Batiment()
@@ -69,17 +76,17 @@ int Batiment::getHauteur()
 	return hauteur;
 }
 
-int Batiment::getSpecificite()
+int Batiment::getSpecificite() const
 {
 	return specificite;
 }
 
-vector<pair<int, int>> Batiment::GetBriques()
+vector<pair<int, int>> Batiment::GetBriques() const
 {
 	return briques;
 }
 
-BatimentPlace ::BatimentPlace(Batiment *bat, int x, int y)
+BatimentPlace ::BatimentPlace(const Batiment *bat, int x, int y)
 {
 	refBatiment = bat;
 	coordonnees = pair<int, int>(x, y);
