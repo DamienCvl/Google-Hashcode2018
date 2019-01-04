@@ -1,4 +1,4 @@
-#include "Batiment.hpp"
+#include "Batiment.h"
 #include <vector>
 
 class InputInformation
@@ -17,6 +17,9 @@ public:
   inline const int getWalkingDist() const { return walkingDist; };
   const Batiment getBatimentAt(int index) const { return batimentsUtilisable[index]; }
   const Batiment *getBatimentPointerAt(int index) const { return &batimentsUtilisable[index]; }
+
+  //Hugo
+  std::vector<Batiment> getBatimentsUtilisables() { return batimentsUtilisable; };
 };
 
 class InputReader

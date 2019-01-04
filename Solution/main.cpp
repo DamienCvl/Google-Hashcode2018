@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-main(int argc, char const *argv[])
+/*int main(int argc, char const *argv[])
 {
     /*
     ifstream f;
@@ -11,8 +11,8 @@ main(int argc, char const *argv[])
     f.getline(line, 100);
     cout << line << endl;
     f.close();
-    */
+ 
 
-    InputInformation infos = InputReader ::readInputFile("/home/damien/Documents/cours/poly/4A/projetC++/hashcode-2018/Solution/hello");
+    InputInformation infos = InputReader ::readInputFile("D:\\Users\\Hugo\\Downloads\\final_round_2018.in\\a_exemple.in");
     return 0;
-}
+}*/

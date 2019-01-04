@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Batiment.h"
 #include "InputReader.hpp"
+
 #include <fstream>
 #include <iostream>
 #include <regex>
@@ -51,7 +53,6 @@ InputInformation InputReader::readInputFile(const char *filepath)
 
     while (f.getline(line, 100))
     {
-
         Batiment b = InputReader::readBatimentHeaderLine(line);
 
         for (int i = 0; i < b.getHauteur(); i++)
@@ -83,7 +84,8 @@ Batiment InputReader ::readBatimentHeaderLine(char *line)
 
     tok = strtok(NULL, " ");
 
-    /*Si le batiment est residentiel alors la spe
+    /*
+	Si le batiment est residentiel alors la spe
     représente la capacité pour la différencier d'un batiment
     utilitaire le nombre est négatif.
     */
