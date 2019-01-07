@@ -42,4 +42,5 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 	void							calculCoeff(vector<Batiment> a);												//Calcul le score que pourrait rapporter chaque batiment. 
 
 	void							afficherBatCoeff();
+	void							triBatimentUti();
 };
