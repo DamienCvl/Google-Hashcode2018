@@ -67,37 +67,42 @@ void Carte::ajouterBatimentPlace(BatimentPlace bp)
 void Carte::placerBatiment(Batiment b, pair<int, int> c)
 {
 	bool condition = true;
-
-	BatimentPlace bp(&b, c);
-
-	int x, y;
-
-	cout << "Coordonees : (" << c.first << ";" << c.second << ")" << endl;
-	vector<pair<int, int>> briques = bp.getBatiment().getBriques();
-
-	for (int i = 0; i < briques.size(); i++)
-	{
-		x = briques[i].first + c.first;
-		y = briques[i].second + c.second;
-
-		if (this->schema[x][y] != 0) {
-			condition = false;
-		}
+	if (c.first < 0 || c.second < 0) {
+		cout << "hors carte" << endl;
 	}
+	else {
+		BatimentPlace bp(&b, c);
 
-	if (condition == true) {
+		int x, y;
+
+		cout << "Coordonees : (" << c.first << ";" << c.second << ")" << endl;
+		vector<pair<int, int>> briques = bp.getBatiment().getBriques();
+
 		for (int i = 0; i < briques.size(); i++)
 		{
 			x = briques[i].first + c.first;
 			y = briques[i].second + c.second;
 
-			this->schema[x][y] = bp.getBatiment().getSpecificite();
+			if (this->schema[x][y] != 0) {
+				condition = false;
+			}
 		}
-		this->ajouterBatimentPlace(bp);
+
+		if (condition == true) {
+			for (int i = 0; i < briques.size(); i++)
+			{
+				x = briques[i].first + c.first;
+				y = briques[i].second + c.second;
+
+				this->schema[x][y] = bp.getBatiment().getSpecificite();
+			}
+			this->ajouterBatimentPlace(bp);
+		}
+		else {
+			cout << "Place occupée" << endl;
+		}
 	}
-	else {
-		cout << "Place occupée" << endl;
-	}
+	
 }
 
 //Tiphaine
