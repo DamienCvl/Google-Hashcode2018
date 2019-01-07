@@ -99,7 +99,7 @@ void Carte::placerBatiment(Batiment b, pair<int, int> c)
 			this->ajouterBatimentPlace(bp);
 		}
 		else {
-			cout << "Place occup�e" << endl;
+			cout << "Place occupée" << endl;
 		}
 	}
 	
@@ -128,6 +128,24 @@ void Carte::calculCoeff(vector<Batiment> listeBatiments) {
 	}
 }
 
+//Tiphaine
+void Carte::triBatimentUti() {
+		for (int i = 0; i < listeCoeffUtilitaire.size(); i++)
+		{
+			for (int j = i; j < listeCoeffUtilitaire.size(); j++) 
+			{
+				if (listeCoeffUtilitaire[j].second < listeCoeffUtilitaire[i].second)  /* si on inverse le signe d'inégalité
+											  on aura le trie décroissant */
+				{
+					auto valeurtemporaire = listeCoeffUtilitaire[i];
+					listeCoeffUtilitaire[i] = listeCoeffUtilitaire[j];
+					listeCoeffUtilitaire[j] = valeurtemporaire;
+				}
+			}
+		}
+}
+
+//Tiphaine
 void Carte::afficherBatCoeff() {
 
 	for (int i = 0; i < listeCoeffResidentiel.size(); i++) {
