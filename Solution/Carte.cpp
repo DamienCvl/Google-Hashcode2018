@@ -46,7 +46,7 @@ void Carte::toString()
 
 void Carte::toFile()
 {
-	ofstream fichier("../VisuMaps/visu_b.in", ios::out | ios::trunc);  // ouverture en �criture avec effacement du fichier ouvert
+	ofstream fichier("../VisuMaps/visu_b.in", ios::out | ios::trunc);  // ouverture en �criture avec effacement du fichier ouvert
 
 	if (fichier)
 	{
@@ -86,21 +86,93 @@ void Carte::ajouterBatimentPlace(BatimentPlace bp)
 
 void Carte::placerBatiment(Batiment b, pair<int, int> c)
 {
-	BatimentPlace bp(&b, c);
+	bool condition = true;
+	if (c.first < 0 || c.second < 0) {
+		cout << "hors carte" << endl;
+	}
+	else {
+		BatimentPlace bp(&b, c);
 
-	int x, y;
+		int x, y;
 
-	cout << "Coordonees : (" << c.first << ";" << c.second << ")" << endl;
-	cout << "Specificit� : (" << bp.getBatiment().getSpecificite() << ")" << endl;
-	vector<pair<int, int>> briques = bp.getBatiment().getBriques();
+		cout << "Coordonees : (" << c.first << ";" << c.second << ")" << endl;
+		vector<pair<int, int>> briques = bp.getBatiment().getBriques();
 
-	for (int i = 0; i < briques.size(); i++)
-	{
-		x = briques[i].first + c.first;
-		y = briques[i].second + c.second;
+		for (int i = 0; i < briques.size(); i++)
+		{
+			x = briques[i].first + c.first;
+			y = briques[i].second + c.second;
 
-		this->schema[x][y] = bp.getBatiment().getSpecificite();
+			if (this->schema[x][y] != 0) {
+				condition = false;
+			}
+		}
+
+		if (condition == true) {
+			for (int i = 0; i < briques.size(); i++)
+			{
+				x = briques[i].first + c.first;
+				y = briques[i].second + c.second;
+
+				this->schema[x][y] = bp.getBatiment().getSpecificite();
+			}
+			this->ajouterBatimentPlace(bp);
+		}
+		else {
+			cout << "Place occupée" << endl;
+		}
+	}
+	
+}
+
+//Tiphaine
+void Carte::calculCoeff(vector<Batiment> listeBatiments) {
+	for (int i = 0; i < listeBatiments.size(); i++) {
+
+		float sizeBatiment = listeBatiments[i].getBriques().size();
+		float hauteur = listeBatiments[i].getHauteur();
+		float largeur = listeBatiments[i].getLargeur();
+		
+		if (listeBatiments[i].getSpecificite() < 0) {
+			
+			float spe = -listeBatiments[i].getSpecificite();
+
+			// nombre de case prise/(largeur*hauteur) * nombre utilitaire 		
+			float coeff = sizeBatiment/(hauteur * largeur)*spe;
+			listeCoeffResidentiel.push_back(pair<Batiment, float>(listeBatiments[i], coeff));
+		}
+		else {
+			float coeff = sizeBatiment / (hauteur * largeur);
+			listeCoeffUtilitaire.push_back(pair<Batiment, float>(listeBatiments[i], coeff));
+		}
+	}
+}
+
+//Tiphaine
+void Carte::triBatimentUti() {
+		for (int i = 0; i < listeCoeffUtilitaire.size(); i++)
+		{
+			for (int j = i; j < listeCoeffUtilitaire.size(); j++) 
+			{
+				if (listeCoeffUtilitaire[j].second < listeCoeffUtilitaire[i].second)  /* si on inverse le signe d'inégalité
+											  on aura le trie décroissant */
+				{
+					auto valeurtemporaire = listeCoeffUtilitaire[i];
+					listeCoeffUtilitaire[i] = listeCoeffUtilitaire[j];
+					listeCoeffUtilitaire[j] = valeurtemporaire;
+				}
+			}
+		}
+}
+
+//Tiphaine
+void Carte::afficherBatCoeff() {
+
+	for (int i = 0; i < listeCoeffResidentiel.size(); i++) {
+		cout << "Batiment : " << i << " - Spe : " << listeCoeffResidentiel[i].first.getSpecificite() << " - Coeff : " << listeCoeffResidentiel[i].second << endl;
 	}
 
-	this->ajouterBatimentPlace(bp);
+	for (int i = 0; i < listeCoeffUtilitaire.size(); i++) {
+		cout << "Batiment : " << i << " - Spe : " << listeCoeffUtilitaire[i].first.getSpecificite() << " - Coeff : " << listeCoeffUtilitaire[i].second << endl;
+	}
 }
