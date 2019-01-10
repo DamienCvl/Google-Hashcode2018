@@ -1,24 +1,16 @@
 
-\.vs/
-
-hascode-2018\.sln
-
-hascode-2018\.vcxproj
-
-hascode-2018\.vcxproj\.filters
-
-hascode-2018\.vcxproj\.user
-
 Maps/
 
 VisuMaps/
 
-*.user
+Solution/\.vs/
 
-*.filters
+Solution/Debug/
+
+Solution/hashcode-2018-solution\.sln
 
 Solution/hashcode-2018-solution\.vcxproj
 
-*.sln
+Solution/hashcode-2018-solution\.vcxproj\.filters
 
-Solution/Debug/
+Solution/hashcode-2018-solution\.vcxproj\.user

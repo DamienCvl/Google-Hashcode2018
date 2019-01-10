@@ -34,27 +34,24 @@ Batiment::Batiment(const Batiment &b)
 
 Batiment Batiment::operator=(const Batiment &b)
 {
-	this->specificite = b.specificite;
-	this->hauteur = b.hauteur;
-	this->largeur = b.largeur;
+	specificite = b.specificite;
+	hauteur = b.hauteur;
+	largeur = b.largeur;
 
-	this->briques = b.briques;
+	briques = b.briques;
+
 	return *this;
 }
 
 Batiment::~Batiment()
 {
+
 }
 
 void Batiment::ajouterBrique(pair<int, int> br)
 {
-	if (br.first < 0 || br.second < 0) {
-		cout << "brique hors de la carte" << endl;
-	}
-	else {
-		auto it = briques.end();												//Placement d'un itérateur au bout de notre vecteur de briques
-		briques.insert(it, br);													//Ajout d'une nouvelle brique au vecteur
-	}
+	auto it = briques.end();												//Placement d'un itérateur au bout de notre vecteur de briques
+	briques.insert(it, br);													//Ajout d'une nouvelle brique au vecteur
 }
 
 void Batiment::toString()
@@ -94,7 +91,7 @@ int Batiment::getSpecificite() const
 	return specificite;
 }
 
-vector<pair<int, int>> Batiment::getBriques() const
+vector<pair<int, int>> Batiment::getBriques()
 {
 	return briques;
 }

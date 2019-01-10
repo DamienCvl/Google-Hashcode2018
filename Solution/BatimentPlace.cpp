@@ -21,5 +21,5 @@ void BatimentPlace::setCoordonnees(pair<int, int> coord)
 
 Batiment BatimentPlace::getBatiment()
 {
-	return * batiment;
+	return *batiment;
 }

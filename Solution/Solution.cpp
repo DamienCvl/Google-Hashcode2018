@@ -13,16 +13,19 @@ int main() {
 
 	cout << "\n" << "Affichage des batiments de la fonction de DEMS : " << endl;
 
-	for (int i = 0; i < infos.getBatimentsUtilisables().size(); i++)
+	/*for (unsigned int i = 0; i < infos.getBatimentsUtilisables().size(); i++)
 	{
 		Batiment btmp = infos.getBatimentAt(i);
 		btmp.toString();
-	}
+	}*/
 
 	Carte carte(infos.getLargeur());
 
-	carte.placerBatiment(infos.getBatimentAt(1), pair<int, int>(0, 0));
-	carte.placerBatiment(infos.getBatimentAt(3), pair<int, int>(0, 3));
+	carte.calculCoeff(infos.getBatimentsUtilisables());
+	carte.setListeBatiments(infos.getBatimentsUtilisables());
+	carte.placerBatimentOpti();
+	
+	carte.placerUtilitaire();
 
 	carte.toFile();
 
