@@ -1,6 +1,6 @@
 #pragma once
 #include "../Solution/InputReader.hpp"
-#include <boost/functional/hash.hpp>
+//#include <boost/functional/hash.hpp>
 #include <exception>
 #include <fstream>
 #include <iostream>
@@ -65,7 +65,7 @@ class Map
                 int buildingY = stoi(tok);
 
                 Batiment b = info.getBatimentAt(buildingID);
-                if (!placeBuildingAt(buildingX, buildingY, b.getSpecificite(), b.GetBriques()))
+                if (!placeBuildingAt(buildingX, buildingY, b.getSpecificite(), b.getBriques()))
                 {
                     cout << "Il y a une erreur dans le fichier à la ligne " << nbBatimentReel << endl;
                     throw(exception());

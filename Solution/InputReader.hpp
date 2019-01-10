@@ -1,3 +1,4 @@
+#include "BatimentPlace.h"
 #include "Batiment.h"
 #include <vector>
 
