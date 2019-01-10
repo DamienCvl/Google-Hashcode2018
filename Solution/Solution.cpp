@@ -27,7 +27,7 @@ int main() {
 	
 	carte.placerUtilitaire();
 
-	carte.toFile();
+	//carte.toOut();
 
 	return 0;
 }

@@ -70,7 +70,28 @@ void Carte::toFile()
 	else
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
+/*
+void Carte::toOut()
+{
+	ofstream fichier("../Maps/b_short_walk.out", ios::out | ios::trunc);
 
+	if (fichier)
+	{
+		fichier << listeBatimentsPlaces.size();
+		for (BatimentPlace bp : listeBatimentsPlaces)
+		{
+			vector<Batiment>::iterator it = find(listeBatiments.begin(), listeBatiments.end(), bp);
+			int index = distance(listeBatiments.begin(), it);
+			fichier << index << " " << bp.getCoordonnees().first << bp.getCoordonnees().second;
+			fichier << endl;
+		}
+
+		fichier.close();
+	}
+	else
+		cerr << "Impossible d'ouvrir le fichier !" << endl;
+}
+*/
 vector<Batiment> Carte::getListeBatiments()
 {
 	return this->listeBatiments;
@@ -294,14 +315,17 @@ void Carte::triBatimentUti() {
 		}
 	}
 
-	for (int i = 0; i < listeBatimentUtilitaireTriee.size(); i++)
+	for (vector<Batiment> vb : listeBatimentUtilitaireTriee)
 	{
-		for (int j = 0; j < listeBatimentUtilitaireTriee[i].size() - 1; j++)
+		for (int i = 0; i < vb.size(); i++)
 		{
-			if (listeBatimentUtilitaireTriee[i][j].getLargeur() < listeBatimentUtilitaireTriee[i][j + 1].getLargeur()) {
-				auto valeurtemporaire = listeBatimentUtilitaireTriee[i][j];
-				listeBatimentUtilitaireTriee[i][j + 1] = listeBatimentUtilitaireTriee[i][j];
-				listeBatimentUtilitaireTriee[i][j] = valeurtemporaire;
+			for (int j = i; j < vb.size(); j++)
+			{
+				if (vb[j].getLargeur() > vb[i].getLargeur()) {
+					auto valeurtemporaire = vb[i];
+					vb[i] = vb[j];
+					vb[j] = valeurtemporaire;
+				}
 			}
 		}
 	}

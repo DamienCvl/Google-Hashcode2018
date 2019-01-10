@@ -30,6 +30,7 @@ public:
 
 	void toString();																			//Affichage de la Carte
 	void toFile();																				//Ecriture de la Carte
+	void toOut();
 
 	vector<Batiment>				getListeBatiments();
 	void							setListeBatiments(vector<Batiment> lBatiments);
