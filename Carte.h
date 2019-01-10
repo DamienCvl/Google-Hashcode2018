@@ -16,8 +16,8 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 	vector<Batiment>				listeBatiments;												//Liste d'objets "Batiments" plaçables sur la carte (provenant de la lecture du fichier en question)
 	vector<BatimentPlace>			listeBatimentsPlaces;										//Liste d'objets "BatimentPlace" placés sur la carte (provenant de la liste ci-dessus)
 	vector<pair<Batiment,float>>	listeCoeffResidentiel;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
-	vector<pair<Batiment, float>>	listeCoeffUtilitaire;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
-
+	vector<Batiment>				listeUtilitaire;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
+	vector<vector<Batiment>>		listeBatimentUtilitaireTriee;
 	int cote;
 
   public:
@@ -26,7 +26,7 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 	Carte(const Carte &);																		//Constructeur de recopie
 	~Carte();																					//Destructeur par défaut
 	
-	void toString();																			//Affichage de la Carte
+	void							toString();													//Affichage de la Carte
 
 	vector<Batiment>				getListeBatiments();
 	void							setListeBatiments(vector<Batiment> lBatiments);				
@@ -35,7 +35,7 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 
 	void							ajouterBatimentPlace(BatimentPlace bp);						//Permet d'ajouter un objet "BatimentPlace" à la listeBatimentsPlaces
 
-	void							placerBatiment(Batiment b, pair<int, int> coord);			//Permet de placer un objet "Batiment" à une certaine coordonnée sur la carte.
+	bool							placerBatiment(Batiment b, pair<int, int> coord);			//Permet de placer un objet "Batiment" à une certaine coordonnée sur la carte.
 																								//Ajoute automatique un objet "BatimentPlace" à la listeBatimentsPlaces en fonction
 																								//en fonction de l'objet "Batiment" passé en argument.
 	
@@ -43,4 +43,5 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 
 	void							afficherBatCoeff();
 	void							triBatimentUti();
+	bool							placerBatimentOpti(pair<int, int> pointA, pair<int, int> pointB);
 };
