@@ -1,6 +1,6 @@
 #pragma once
 #include "../Solution/InputReader.hpp"
-#include <boost/functional/hash.hpp>
+//#include <boost/functional/hash.hpp>
 #include <exception>
 #include <fstream>
 #include <iostream>

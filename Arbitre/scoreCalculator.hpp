@@ -1,6 +1,6 @@
 #pragma once
 #include "map.hpp"
-#include <boost/functional/hash.hpp>
+//#include <boost/functional/hash.hpp>
 #include <unordered_set>
 #include <utility>
 #include <vector>

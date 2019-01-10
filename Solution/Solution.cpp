@@ -1,39 +1,30 @@
+#pragma once
 #include <iostream>
+#include <fstream>
 
-#include "Batiment.h"
-#include "BatimentResidentiel.h"
-#include "BatimentUtilitaire.h"
 #include "Carte.h"
-
-#include <utility>
+#include "InputReader.hpp"
 
 using namespace std;
 
-Carte carte;
-//Liste des Batiments
-vector<Batiment> listeBatiments;
-//BatimentResidentiel * tableauBatiments;
-//BatimentUtilitaire * tableauBatiments;
-
 int main() {
 
-	Carte carte(10);
+	InputInformation infos = InputReader::readInputFile("../Maps/b_short_walk.in");
 
-	cout << endl;
+	cout << "\n" << "Affichage des batiments de la fonction de DEMS : " << endl;
 
-	Batiment b1(3, 3, pair<int, int>(0, 2));
+	for (int i = 0; i < infos.getBatimentsUtilisables().size(); i++)
+	{
+		Batiment btmp = infos.getBatimentAt(i);
+		btmp.toString();
+	}
 
-	b1.ajouterBrique(pair<int, int>(0, 0));
-	b1.ajouterBrique(pair<int, int>(1, 0));
-	b1.ajouterBrique(pair<int, int>(1, 1));
-	b1.ajouterBrique(pair<int, int>(1, 2));
-	b1.ajouterBrique(pair<int, int>(2, 2));
-	b1.toString();
+	Carte carte(infos.getLargeur());
 
-	b1.setCoordonees(pair<int, int>(0, 2));
+	carte.placerBatiment(infos.getBatimentAt(1), pair<int, int>(0, 0));
+	carte.placerBatiment(infos.getBatimentAt(3), pair<int, int>(0, 3));
 
-	listeBatiments.push_back(b1);
-	carte.ajouterBatiment(listeBatiments);
-	carte.toString();
+	carte.toFile();
 
+	return 0;
 }
