@@ -24,7 +24,6 @@ int main(int argc, char const *argv[])
 
             for (const auto &entryExec : fs::directory_iterator(argv[1]))
             {
-                // create a string, i.e. an array  of 50 char
                 char command[50];
 
                 sprintf(command, "%s %s %s", entryExec.path().c_str(), entryInput.path().c_str(), "./output.out");
@@ -37,10 +36,9 @@ int main(int argc, char const *argv[])
 
                 auto duree = finish - start;
 
-                //Map m("./output.out", infos);
+                Map m("./output.out", infos);
 
-                //csvOutput << entryInput.path().c_str() << " , " << entryExec.path().c_str() << " , " << duree.count() << " , " << calculateScoreFromMap(m) << endl;
-                csvOutput << entryInput.path().c_str() << " , " << entryExec.path().c_str() << " , " << duree.count() << " , " << 2000 << endl;
+                csvOutput << entryInput.path().c_str() << " , " << entryExec.path().c_str() << " , " << duree.count() << " , " << calculateScoreFromMap(m) << endl;
             }
         }
         return 0;
