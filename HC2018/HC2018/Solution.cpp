@@ -21,9 +21,9 @@ int main() {
 		do {
 			string nom_fichier = Fichier.cFileName;
 			nom_fichier = nom_fichier.substr(0, nom_fichier.size() - 3);
-			string chemin = "..\\Maps\\" + nom_fichier + ".in";
+			string chemin = "..\\Maps\\" + nom_fichier;
 			cout << "Chemin : " << chemin.c_str() << endl;
-			InputInformation infos = InputReader::readInputFile(chemin.c_str());
+			InputInformation infos = InputReader::readInputFile((chemin + ".in").c_str());
 			Carte carte(infos.getHauteur());
 
 			carte.setListeBatiments(infos.getBatimentsUtilisables());
@@ -32,12 +32,20 @@ int main() {
 			carte.placerResidentiel();
 			carte.placerUtilitaire();
 
-			//carte.toFile();
+			carte.toFile(nom_fichier);
 			carte.toOut(nom_fichier);
-			Map m1("..\\Maps\\b_short_walk.out", infos);
+			//InputInformation infos = InputReader::readInputFile("..\\Maps\\d_wide_selection.in");
+			Map m1((chemin + ".out").c_str(), infos);
 			std::cout << calculateScoreFromMap(m1) << std::endl;
 
 		} while (FindNextFile(Frecherche, &Fichier));
 	}
+	//SCORES :
+	//MAP A : 25
+	//MAP B : 2.332.499
+	//MAP C : 5.375.123
+	//MAP D : 2.770.052
+	//MAP E : 1.013.540
+	//MAP F : 
 	return 0;
 }

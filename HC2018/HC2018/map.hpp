@@ -65,11 +65,11 @@ class Map
                 tok = strtok(NULL, " ");
                 int buildingY = stoi(tok);
 
-                Batiment b = info.getBatimentAt(buildingID - 1);
+                Batiment b = info.getBatimentAt(buildingID);
                 if (!placeBuildingAt(buildingX, buildingY, b.getSpecificite(), b.getBriques()))
                 {
                     cout << "Il y a une erreur dans le fichier à la ligne " << nbBatimentReel << endl;
-                    //throw(exception());
+                    throw(exception());
                 }
                 if (b.getSpecificite() < 0)
                 {
@@ -79,7 +79,7 @@ class Map
             }
         }
         submisionFile.close();
-        if (nbBatimentIndique != (nbBatimentReel + 1))
+        if (nbBatimentIndique != (nbBatimentReel))
         {
             cout << "Il y a une erreur le nombre de buildings indiqué ne correspond pas au nombre de buildings placés" << endl;
         }

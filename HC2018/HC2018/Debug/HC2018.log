@@ -1,3 +1,24 @@
-﻿  arbitre.cpp
-  Info: Boost.Config is older than your compiler version - probably nothing bad will happen - but you may wish to look for an update Boost version.  Define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE to suppress this message.
+﻿  Carte.cpp
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(83): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(109): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(140): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(151): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(215): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(217): warning C4244: 'initialisation' : conversion de 'unsigned int' en 'float', perte possible de données
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(218): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(219): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(223): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(240): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(242): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(258): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(272): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(285): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(289): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(296): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(298): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(312): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(326): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(328): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(347): warning C4018: '<' : incompatibilité signed/unsigned
+d:\users\hugo\documents\travail\c++\hc2018\hc2018\carte.cpp(351): warning C4018: '<' : incompatibilité signed/unsigned
   HC2018.vcxproj -> D:\Users\Hugo\Documents\Travail\C++\HC2018\Debug\HC2018.exe

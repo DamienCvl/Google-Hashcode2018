@@ -29,7 +29,7 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 	~Carte();																					//Destructeur par défaut
 	
 	void toString();																			//Affichage de la Carte
-	void toFile();																				//Ecriture de la Carte
+	void toFile(string nom_fichier);															//Ecriture de la Carte
 	void toOut(string nom_fichier);																//Fichier de sortie
 
 	vector<Batiment>				getListeBatiments();

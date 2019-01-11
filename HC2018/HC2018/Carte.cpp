@@ -45,9 +45,10 @@ void Carte::toString()
 	}
 }
 
-void Carte::toFile()
+void Carte::toFile(string nom_fichier)
 {
-	ofstream fichier("../Maps/b_short_walk_visu.in", ios::out | ios::trunc);
+	string chemin = "..\\Maps\\" + nom_fichier + ".visu";
+	ofstream fichier(chemin, ios::out | ios::trunc);
 
 	if (fichier)
 	{
@@ -79,9 +80,9 @@ void Carte::toOut(string nom_fichier)
 	if (fichier)
 	{
 		fichier << listeBatimentsPlaces.size() << endl;
-		for (int i = 0; i < listeBatimentsPlaces.size() - 1; i++)
+		for (int i = 0; i < listeBatimentsPlaces.size(); i++)
 		{
-			fichier << listeBatimentsPlaces[i].getBatiment().getLigne()
+			fichier << listeBatimentsPlaces[i].getBatiment().getLigne() - 1
 				<< " " << listeBatimentsPlaces[i].getCoordonnees().first
 				<< " " << listeBatimentsPlaces[i].getCoordonnees().second << endl;
 		}
@@ -307,17 +308,16 @@ void Carte::triBatimentUti() {
 
 	int specificite = 0;
 	vector<Batiment> bat;
-	listeBatimentUtilitaireTriee.push_back(bat);
-
+	
 	for (int i = 0; i < listeUtilitaire.size(); i++) {
-		if (listeUtilitaire[i].getSpecificite() - 1 != specificite) {
+		if (listeUtilitaire[i].getSpecificite() != specificite) {
 			vector<Batiment> bat;
-			listeBatimentUtilitaireTriee.push_back(bat);
-			specificite += 1;
+			specificite++;
 			bat.push_back(listeUtilitaire[i]);
+			listeBatimentUtilitaireTriee.push_back(bat);
 		}
 		else {
-			listeBatimentUtilitaireTriee[specificite].push_back(listeUtilitaire[i]);
+			listeBatimentUtilitaireTriee[specificite - 1].push_back(listeUtilitaire[i]);
 		}
 	}
 
