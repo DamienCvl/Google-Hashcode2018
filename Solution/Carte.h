@@ -11,26 +11,28 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 																								//rescencant chaque batiment qui peut être placé sur celle-ci ainsi qu'une liste d'objet "BatimentPlace"
 																								//rescencant chaque batiment qui a été placé sur celle-ci.
 {
-  private:
+private:
 	vector<vector<int>>				schema;
 	vector<Batiment>				listeBatiments;												//Liste d'objets "Batiments" plaçables sur la carte (provenant de la lecture du fichier en question)
 	vector<BatimentPlace>			listeBatimentsPlaces;										//Liste d'objets "BatimentPlace" placés sur la carte (provenant de la liste ci-dessus)
-	vector<pair<Batiment,float>>	listeCoeffResidentiel;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
-	vector<pair<Batiment,float>>	listeCoeffUtilitaire;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
+	vector<pair<Batiment, float>>	listeCoeffResidentiel;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
+	vector<pair<Batiment, float>>	listeCoeffUtilitaire;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
 
 	vector<Batiment>				listeUtilitaire;
 	vector<vector<Batiment>>		listeBatimentUtilitaireTriee;
-	int cote;
+	int hauteur;
+	int largeur;
+	int walkDis;
 
-  public:
+public:
 	Carte();																					//Constructeur par défaut
-	Carte(int cote);																			//Constructeur
+	Carte(int h, int l, int wD);																		//Constructeur
 	Carte(const Carte &);																		//Constructeur de recopie
 	~Carte();																					//Destructeur par défaut
-	
+
 	void toString();																			//Affichage de la Carte
-	void toFile();																				//Ecriture de la Carte
-	void toOut();																				//Fichier de sortie
+	void toFile(string nom_fichier);															//Ecriture de la Carte
+	void toOut(string nom_fichier);																//Fichier de sortie
 
 	vector<Batiment>				getListeBatiments();
 	void							setListeBatiments(vector<Batiment> lBatiments);
@@ -45,9 +47,9 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 																								//Ajoute automatique un objet "BatimentPlace" à la listeBatimentsPlaces en fonction
 																								//en fonction de l'objet "Batiment" passé en argument.
 
-	bool							placerBatimentOpti();
+	bool							placerResidentiel();
 	void							placerUtilitaire();
-	
+
 	void							calculCoeff(vector<Batiment> a);												//Calcul le score que pourrait rapporter chaque batiment. 
 	void							afficherBatCoeff();
 	void							triBatimentRes();

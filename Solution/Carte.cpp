@@ -12,12 +12,14 @@ Carte::Carte()
 
 }
 
-Carte::Carte(int c)
+Carte::Carte(int h, int l, int wD)
 {
-	this->cote = c;
+	this->hauteur = h;
+	this->largeur = l;
+	this->walkDis = wD;
 
-	vector<int> donnees(c, 0);					//Creation de la matrice
-	vector<vector<int>> matrice(c, donnees);
+	vector<int> donnees(l, 0);					//Creation de la matrice
+	vector<vector<int>> matrice(h, donnees);
 
 	this->schema = matrice;
 }
@@ -36,24 +38,25 @@ void Carte::toString()
 {
 	cout << "\nAffichage de la Carte : \n";
 
-	for (int i = 0; i <= this->cote - 1; i++)		//Affichage de la matrice
+	for (int i = 0; i <= this->hauteur - 1; i++)		//Affichage de la matrice
 	{
-		for (int j = 0; j <= cote - 1; j++) {
+		for (int j = 0; j <= largeur - 1; j++) {
 			cout << schema[i][j] << " ";
 		}
 		cout << endl;
 	}
 }
 
-void Carte::toFile()
+void Carte::toFile(string chemin_sortie)
 {
-	ofstream fichier("../Maps/b_short_walk_visu.in", ios::out | ios::trunc);
+	string chemin = chemin_sortie + ".visu";
+	ofstream fichier(chemin, ios::out | ios::trunc);
 
 	if (fichier)
 	{
-		for (int i = 0; i <= this->cote - 1; i++)		//Affichage de la matrice
+		for (int i = 0; i <= this->hauteur - 1; i++)		//Affichage de la matrice
 		{
-			for (int j = 0; j <= cote - 1; j++) {
+			for (int j = 0; j <= largeur - 1; j++) {
 				if (schema[i][j] == 0) {
 					fichier << "[" << 666 << "]";
 				}
@@ -71,18 +74,19 @@ void Carte::toFile()
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
 
-void Carte::toOut()
+void Carte::toOut(string chemin_sortie)
 {
-	ofstream fichier("../Maps/b_short_walk.out", ios::out | ios::trunc);
+	string chemin = chemin_sortie + ".out";
+	ofstream fichier(chemin, ios::out | ios::trunc);
 
 	if (fichier)
 	{
 		fichier << listeBatimentsPlaces.size() << endl;
-		for (int i = 0; i < listeBatimentsPlaces.size() - 1; i++)
+		for (unsigned int i = 0; i < listeBatimentsPlaces.size(); i++)
 		{
-			fichier << listeBatimentsPlaces[i].getBatiment().getLigne() 
-					<< " " << listeBatimentsPlaces[i].getCoordonnees().first 
-					<< " " << listeBatimentsPlaces[i].getCoordonnees().second << endl;
+			fichier << listeBatimentsPlaces[i].getBatiment().getLigne() - 1
+				<< " " << listeBatimentsPlaces[i].getCoordonnees().first
+				<< " " << listeBatimentsPlaces[i].getCoordonnees().second << endl;
 		}
 
 		fichier.close();
@@ -104,7 +108,7 @@ void Carte::setListeBatiments(vector<Batiment> lBatiments)
 
 void Carte::ajouterLignes()
 {
-	for (int i = 0; i < listeBatiments.size(); i++)
+	for (unsigned int i = 0; i < listeBatiments.size(); i++)
 	{
 		listeBatiments[i].setLigne(i + 1);
 	}
@@ -135,7 +139,7 @@ bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 		//cout << "Coordonnees : (" << c.first << ";" << c.second << ")" << endl;
 		vector<pair<int, int>> briques = bp.getBatiment().getBriques();
 
-		for (int i = 0; i < briques.size(); i++)
+		for (unsigned int i = 0; i < briques.size(); i++)
 		{
 			x = briques[i].first + c.first;
 			y = briques[i].second + c.second;
@@ -146,7 +150,7 @@ bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 		}
 
 		if (condition == true) {
-			for (int i = 0; i < briques.size(); i++)
+			for (unsigned int i = 0; i < briques.size(); i++)
 			{
 				x = briques[i].first + c.first;
 				y = briques[i].second + c.second;
@@ -182,35 +186,38 @@ bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 	}
 }
 
-bool Carte::placerBatimentOpti()
+bool Carte::placerResidentiel()
 {
 	Batiment bestBat = listeCoeffResidentiel[0].first;
 
 	int decLarg = this->calculLargMax();
 	int decHaut = this->calculHautMax();
+	int nbr = 0;
 
-	cout << "LargMax : " << decLarg << " - HautMax : " << decHaut << endl;
+	//cout << "LargMax : " << decLarg << " - HautMax : " << decHaut << endl;										
 
-	for (int x = 0; x < cote - bestBat.getLargeur(); x = x + decLarg + bestBat.getLargeur())		//Affichage de la matrice
+	for (int x = 0; x < hauteur - bestBat.getHauteur(); x = x + /*decHaut +*/ +walkDis + bestBat.getHauteur())		//Affichage de la matrice
 	{
-		for (int y = 0; y < (cote - bestBat.getHauteur()); y = y + decHaut + bestBat.getHauteur()) {
+		for (int y = 0; y < (largeur - bestBat.getLargeur()); y = y + /*decLarg +*/ +walkDis + bestBat.getLargeur()) {
 			this->placerBatiment(bestBat, pair<int, int>(x, y));
+			nbr++;
 		}
 	}
 
-	for (int x = decLarg - 1; x < cote - decLarg; x = x + decLarg + bestBat.getLargeur())		//Affichage de la matrice
+	for (int x = decHaut - 1; x < hauteur - decHaut; x = x + /*decHaut +*/ +walkDis + bestBat.getHauteur())		//Affichage de la matrice
 	{
-		for (int y = decHaut - 1; y < cote - decHaut; y = y + decHaut + bestBat.getHauteur()) {
+		for (int y = decLarg - 1; y < largeur - decLarg; y = y + /*decLarg +*/ +walkDis + bestBat.getLargeur()) {
 			this->placerBatiment(bestBat, pair<int, int>(x, y));
+			nbr++;
 		}
 	}
-
+	cout << "Nombre de batiments residentiels places : " << nbr << endl;
 	return true;
 }
 
 //Tiphaine
 void Carte::calculCoeff(vector<Batiment> listeBatiments) {
-	for (int i = 0; i < listeBatiments.size(); i++) {
+	for (unsigned int i = 0; i < listeBatiments.size(); i++) {
 
 		float sizeBatiment = listeBatiments[i].getBriques().size();
 		float hauteur = listeBatiments[i].getHauteur();
@@ -235,9 +242,9 @@ void Carte::calculCoeff(vector<Batiment> listeBatiments) {
 
 //Tiphaine
 void Carte::triBatimentRes() {
-	for (int i = 0; i < listeCoeffResidentiel.size(); i++)
+	for (unsigned int i = 0; i < listeCoeffResidentiel.size(); i++)
 	{
-		for (int j = i; j < listeCoeffResidentiel.size(); j++)
+		for (unsigned int j = i; j < listeCoeffResidentiel.size(); j++)
 		{
 			if (listeCoeffResidentiel[j].second > listeCoeffResidentiel[i].second)
 			{
@@ -253,7 +260,7 @@ int Carte::calculLargMax()
 {
 	int largMax = 0;
 
-	for (int i = 0; i < listeBatiments.size(); i++)
+	for (unsigned int i = 0; i < listeBatiments.size(); i++)
 	{
 		if (listeBatiments[i].getLargeur() > largMax)
 		{
@@ -267,7 +274,7 @@ int Carte::calculHautMax()
 {
 	int hautMax = 0;
 
-	for (int i = 0; i < listeBatiments.size(); i++)
+	for (unsigned int i = 0; i < listeBatiments.size(); i++)
 	{
 		if (listeBatiments[i].getLargeur() > hautMax)
 		{
@@ -280,20 +287,20 @@ int Carte::calculHautMax()
 //Tiphaine
 void Carte::afficherBatCoeff() {
 
-	for (int i = 0; i < listeCoeffResidentiel.size(); i++) {
+	for (unsigned int i = 0; i < listeCoeffResidentiel.size(); i++) {
 		cout << "Batiment : " << i << " - Spe : " << listeCoeffResidentiel[i].first.getSpecificite() << " - Coeff : " << listeCoeffResidentiel[i].second << endl;
 	}
 
-	for (int i = 0; i < listeCoeffUtilitaire.size(); i++) {
+	for (unsigned int i = 0; i < listeCoeffUtilitaire.size(); i++) {
 		cout << "Batiment : " << i << " - Spe : " << listeCoeffUtilitaire[i].first.getSpecificite() << " - Coeff : " << listeCoeffUtilitaire[i].second << endl;
 	}
 }
 
 void Carte::triBatimentUti() {
 
-	for (int i = 0; i < listeUtilitaire.size(); i++)
+	for (unsigned int i = 0; i < listeUtilitaire.size(); i++)
 	{
-		for (int j = i; j < listeUtilitaire.size(); j++)
+		for (unsigned int j = i; j < listeUtilitaire.size(); j++)
 		{
 			if (listeUtilitaire[j].getSpecificite() < listeUtilitaire[i].getSpecificite()) {
 				auto valeurtemporaire = listeUtilitaire[i];
@@ -306,25 +313,24 @@ void Carte::triBatimentUti() {
 
 	int specificite = 0;
 	vector<Batiment> bat;
-	listeBatimentUtilitaireTriee.push_back(bat);
-
-	for (int i = 0; i < listeUtilitaire.size(); i++) {
-		if (listeUtilitaire[i].getSpecificite() - 1 != specificite) {
+	
+	for (unsigned int i = 0; i < listeUtilitaire.size(); i++) {
+		if (listeUtilitaire[i].getSpecificite() != specificite) {
 			vector<Batiment> bat;
-			listeBatimentUtilitaireTriee.push_back(bat);
-			specificite += 1;
+			specificite++;
 			bat.push_back(listeUtilitaire[i]);
+			listeBatimentUtilitaireTriee.push_back(bat);
 		}
 		else {
-			listeBatimentUtilitaireTriee[specificite].push_back(listeUtilitaire[i]);
+			listeBatimentUtilitaireTriee[specificite - 1].push_back(listeUtilitaire[i]);
 		}
 	}
 
 	for (vector<Batiment> vb : listeBatimentUtilitaireTriee)
 	{
-		for (int i = 0; i < vb.size(); i++)
+		for (unsigned int i = 0; i < vb.size(); i++)
 		{
-			for (int j = i; j < vb.size(); j++)
+			for (unsigned int j = i; j < vb.size(); j++)
 			{
 				if (vb[j].getLargeur() > vb[i].getLargeur()) {
 					auto valeurtemporaire = vb[i];
@@ -338,19 +344,16 @@ void Carte::triBatimentUti() {
 
 void Carte::placerUtilitaire() {
 
-	int decLarg = this->calculLargMax();
-	int decHaut = this->calculHautMax();
-
 	unsigned int typeUtilitaire = 0;
 	unsigned int ancienTypeUtilitaire = 0;
 	unsigned int nbrUtilitairePlace = 0;
 	bool is_batimentPlace = false;
 
-	for (unsigned int i = 0; i < cote; i++) {
+	for (int i = 0; i < hauteur; i++) {
 
 		vector<int> temp = schema[i];
-		cout << "Etude de la ligne : " << i << endl;
-		for (unsigned int j = 0; j < cote; j++) {
+		//cout << "Etude de la ligne : " << i << endl;
+		for (int j = 0; j < largeur; j++) {
 			int brique = temp[j];
 			pair<int, int> coordBrique;
 			coordBrique.first = i;
@@ -360,7 +363,7 @@ void Carte::placerUtilitaire() {
 				for (typeUtilitaire = ancienTypeUtilitaire + 1; !(is_batimentPlace); typeUtilitaire++) {
 					if (typeUtilitaire == listeBatimentUtilitaireTriee.size()) typeUtilitaire = 0;
 					for (unsigned int k = 0; k < listeBatimentUtilitaireTriee[typeUtilitaire].size(); k++) {
-						if (coordBrique.first < cote - decLarg && coordBrique.second < cote - decHaut)
+						if (coordBrique.first + listeBatimentUtilitaireTriee[typeUtilitaire][k].getHauteur() - 1 < hauteur && coordBrique.second + listeBatimentUtilitaireTriee[typeUtilitaire][k].getLargeur() - 1 < largeur)
 						{
 							if (placerBatiment(listeBatimentUtilitaireTriee[typeUtilitaire][k], coordBrique)) {
 								is_batimentPlace = true;
