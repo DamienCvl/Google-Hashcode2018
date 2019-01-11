@@ -35,7 +35,6 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="scoreCalculator.cpp" />
     <ClCompile Include="Solution.cpp" />
-    <ClCompile Include="_scoreCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Maps\a_example.in" />

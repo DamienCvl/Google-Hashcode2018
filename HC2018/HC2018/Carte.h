@@ -30,7 +30,7 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 	
 	void toString();																			//Affichage de la Carte
 	void toFile();																				//Ecriture de la Carte
-	void toOut();																				//Fichier de sortie
+	void toOut(string nom_fichier);																//Fichier de sortie
 
 	vector<Batiment>				getListeBatiments();
 	void							setListeBatiments(vector<Batiment> lBatiments);
@@ -45,7 +45,7 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 																								//Ajoute automatique un objet "BatimentPlace" à la listeBatimentsPlaces en fonction
 																								//en fonction de l'objet "Batiment" passé en argument.
 
-	bool							placerBatimentOpti();
+	bool							placerResidentiel();
 	void							placerUtilitaire();
 	
 	void							calculCoeff(vector<Batiment> a);												//Calcul le score que pourrait rapporter chaque batiment. 

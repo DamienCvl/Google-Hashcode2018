@@ -71,18 +71,19 @@ void Carte::toFile()
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
 
-void Carte::toOut()
+void Carte::toOut(string nom_fichier)
 {
-	ofstream fichier("../Maps/b_short_walk.out", ios::out | ios::trunc);
+	string chemin = "..\\Maps\\" + nom_fichier + ".out";
+	ofstream fichier(chemin, ios::out | ios::trunc);
 
 	if (fichier)
 	{
 		fichier << listeBatimentsPlaces.size() << endl;
 		for (int i = 0; i < listeBatimentsPlaces.size() - 1; i++)
 		{
-			fichier << listeBatimentsPlaces[i].getBatiment().getLigne() 
-					<< " " << listeBatimentsPlaces[i].getCoordonnees().first 
-					<< " " << listeBatimentsPlaces[i].getCoordonnees().second << endl;
+			fichier << listeBatimentsPlaces[i].getBatiment().getLigne()
+				<< " " << listeBatimentsPlaces[i].getCoordonnees().first
+				<< " " << listeBatimentsPlaces[i].getCoordonnees().second << endl;
 		}
 
 		fichier.close();
@@ -182,7 +183,7 @@ bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 	}
 }
 
-bool Carte::placerBatimentOpti()
+bool Carte::placerResidentiel()
 {
 	Batiment bestBat = listeCoeffResidentiel[0].first;
 
@@ -191,16 +192,16 @@ bool Carte::placerBatimentOpti()
 
 	cout << "LargMax : " << decLarg << " - HautMax : " << decHaut << endl;
 
-	for (int x = 0; x < cote - bestBat.getLargeur(); x = x + decLarg + bestBat.getLargeur())		//Affichage de la matrice
+	for (int x = 0; x < cote - bestBat.getHauteur(); x = x + decHaut + bestBat.getHauteur())		//Affichage de la matrice
 	{
-		for (int y = 0; y < (cote - bestBat.getHauteur()); y = y + decHaut + bestBat.getHauteur()) {
+		for (int y = 0; y < (cote - bestBat.getLargeur()); y = y + decLarg + bestBat.getLargeur()) {
 			this->placerBatiment(bestBat, pair<int, int>(x, y));
 		}
 	}
 
-	for (int x = decLarg - 1; x < cote - decLarg; x = x + decLarg + bestBat.getLargeur())		//Affichage de la matrice
+	for (int x = decHaut - 1; x < cote - decHaut; x = x + decHaut + bestBat.getHauteur())		//Affichage de la matrice
 	{
-		for (int y = decHaut - 1; y < cote - decHaut; y = y + decHaut + bestBat.getHauteur()) {
+		for (int y = decLarg - 1; y < cote - decLarg; y = y + decLarg + bestBat.getLargeur()) {
 			this->placerBatiment(bestBat, pair<int, int>(x, y));
 		}
 	}
@@ -338,9 +339,6 @@ void Carte::triBatimentUti() {
 
 void Carte::placerUtilitaire() {
 
-	int decLarg = this->calculLargMax();
-	int decHaut = this->calculHautMax();
-
 	unsigned int typeUtilitaire = 0;
 	unsigned int ancienTypeUtilitaire = 0;
 	unsigned int nbrUtilitairePlace = 0;
@@ -360,7 +358,7 @@ void Carte::placerUtilitaire() {
 				for (typeUtilitaire = ancienTypeUtilitaire + 1; !(is_batimentPlace); typeUtilitaire++) {
 					if (typeUtilitaire == listeBatimentUtilitaireTriee.size()) typeUtilitaire = 0;
 					for (unsigned int k = 0; k < listeBatimentUtilitaireTriee[typeUtilitaire].size(); k++) {
-						if (coordBrique.first < cote - decLarg && coordBrique.second < cote - decHaut)
+						if (coordBrique.first + listeBatimentUtilitaireTriee[typeUtilitaire][k].getHauteur() - 1 < cote && coordBrique.second + listeBatimentUtilitaireTriee[typeUtilitaire][k].getLargeur() - 1 < cote)
 						{
 							if (placerBatiment(listeBatimentUtilitaireTriee[typeUtilitaire][k], coordBrique)) {
 								is_batimentPlace = true;

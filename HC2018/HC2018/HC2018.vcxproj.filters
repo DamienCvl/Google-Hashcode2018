@@ -62,9 +62,6 @@
     <ClCompile Include="scoreCalculator.cpp">
       <Filter>Arbitre</Filter>
     </ClCompile>
-    <ClCompile Include="_scoreCalculator.cpp">
-      <Filter>Arbitre</Filter>
-    </ClCompile>
     <ClCompile Include="arbitre.cpp">
       <Filter>Arbitre</Filter>
     </ClCompile>
