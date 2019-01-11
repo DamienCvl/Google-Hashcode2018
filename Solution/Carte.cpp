@@ -342,6 +342,7 @@ void Carte::triBatimentUti() {
 	}
 }
 
+
 void Carte::placerUtilitaire() {
 
 	unsigned int typeUtilitaire = 0;
@@ -349,38 +350,35 @@ void Carte::placerUtilitaire() {
 	unsigned int nbrUtilitairePlace = 0;
 	bool is_batimentPlace = false;
 
-	for (int i = 0; i < hauteur; i++) {
-
-		vector<int> temp = schema[i];
-		//cout << "Etude de la ligne : " << i << endl;
-		for (int j = 0; j < largeur; j++) {
+	for (int i = 0; i < hauteur; i++) {						//Double boucle de parcours de la carte
+															//
+		vector<int> temp = schema[i];						//
+		//cout << "Etude de la ligne : " << i << endl;		//Debug
+		for (int j = 0; j < largeur; j++) {					//
 			int brique = temp[j];
 			pair<int, int> coordBrique;
 			coordBrique.first = i;
 			coordBrique.second = j;
 			is_batimentPlace = false;
 			if (brique == 0) {
-				for (typeUtilitaire = ancienTypeUtilitaire + 1; !(is_batimentPlace); typeUtilitaire++) {
-					if (typeUtilitaire == listeBatimentUtilitaireTriee.size()) typeUtilitaire = 0;
-					for (unsigned int k = 0; k < listeBatimentUtilitaireTriee[typeUtilitaire].size(); k++) {
-						if (coordBrique.first + listeBatimentUtilitaireTriee[typeUtilitaire][k].getHauteur() - 1 < hauteur && coordBrique.second + listeBatimentUtilitaireTriee[typeUtilitaire][k].getLargeur() - 1 < largeur)
+				for (typeUtilitaire = ancienTypeUtilitaire + 1; !(is_batimentPlace); typeUtilitaire++) {						//Ceci est la boucle de parcours des batiments utilitaires. Elle demarre par le prochain type suivant le dernier batiment place
+					if (typeUtilitaire == listeBatimentUtilitaireTriee.size()) typeUtilitaire = 0;								//On recommence avec les premiers types une fois arrive au dernier type de la liste de batiment utilitaire.
+					for (unsigned int k = 0; k < listeBatimentUtilitaireTriee[typeUtilitaire].size(); k++) {					//Boucle simple de parcours de batiment de type k
+						if (coordBrique.first + listeBatimentUtilitaireTriee[typeUtilitaire][k].getHauteur() - 1 < hauteur &&
+							coordBrique.second + listeBatimentUtilitaireTriee[typeUtilitaire][k].getLargeur() - 1 < largeur)	//Condition pour ne pas placer de batiment qui deborde de la carte
 						{
-							if (placerBatiment(listeBatimentUtilitaireTriee[typeUtilitaire][k], coordBrique)) {
+							if (placerBatiment(listeBatimentUtilitaireTriee[typeUtilitaire][k], coordBrique)) {					//on essaie de placer le batiment
 								is_batimentPlace = true;
 								ancienTypeUtilitaire = typeUtilitaire;
 								nbrUtilitairePlace++;
-								//cout << "Batiment utilitaire de type " << typeUtilitaire + 1 << " place à la coord : " << coordBrique.first << ":" << coordBrique.second << endl;
-								break;
+								break;																							//sortie de la boucle simple de parcours de batiment k
 							}
 						}
-					}
-					if (ancienTypeUtilitaire == typeUtilitaire) {
+					}																											//On sort de la boucle liee a tous les batiments utilitaires quand on a place un batiment
+					if (ancienTypeUtilitaire == typeUtilitaire) {																//ou quand on a fait tout les batiments utilitaires
 						break;
 					}
 				}
-				//if (!is_batimentPlace) {
-					//cout << "Aucun batiment utilitaire ne peut etre place en : " << coordBrique.first << ':' << coordBrique.second << endl;
-				//}
 			}
 		}
 	}
