@@ -3,7 +3,7 @@
 
 #include "BatimentPlace.h"
 
-BatimentPlace::BatimentPlace(const Batiment * bat, pair<int, int> coord)
+BatimentPlace::BatimentPlace(Batiment bat, pair<int, int> coord)
 {
 	batiment = bat;
 	coordonnees = coord;
@@ -21,5 +21,5 @@ void BatimentPlace::setCoordonnees(pair<int, int> coord)
 
 Batiment BatimentPlace::getBatiment()
 {
-	return *batiment;
+	return batiment;
 }

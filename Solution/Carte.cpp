@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -70,20 +70,19 @@ void Carte::toFile()
 	else
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
-/*
+
 void Carte::toOut()
 {
 	ofstream fichier("../Maps/b_short_walk.out", ios::out | ios::trunc);
 
 	if (fichier)
 	{
-		fichier << listeBatimentsPlaces.size();
-		for (BatimentPlace bp : listeBatimentsPlaces)
+		fichier << listeBatimentsPlaces.size() << endl;
+		for (int i = 0; i < listeBatimentsPlaces.size() - 1; i++)
 		{
-			vector<Batiment>::iterator it = find(listeBatiments.begin(), listeBatiments.end(), bp);
-			int index = distance(listeBatiments.begin(), it);
-			fichier << index << " " << bp.getCoordonnees().first << bp.getCoordonnees().second;
-			fichier << endl;
+			fichier << listeBatimentsPlaces[i].getBatiment().getLigne() 
+					<< " " << listeBatimentsPlaces[i].getCoordonnees().first 
+					<< " " << listeBatimentsPlaces[i].getCoordonnees().second << endl;
 		}
 
 		fichier.close();
@@ -91,7 +90,7 @@ void Carte::toOut()
 	else
 		cerr << "Impossible d'ouvrir le fichier !" << endl;
 }
-*/
+
 vector<Batiment> Carte::getListeBatiments()
 {
 	return this->listeBatiments;
@@ -100,6 +99,15 @@ vector<Batiment> Carte::getListeBatiments()
 void Carte::setListeBatiments(vector<Batiment> lBatiments)
 {
 	this->listeBatiments = lBatiments;
+	this->ajouterLignes();
+}
+
+void Carte::ajouterLignes()
+{
+	for (int i = 0; i < listeBatiments.size(); i++)
+	{
+		listeBatiments[i].setLigne(i + 1);
+	}
 }
 
 vector<BatimentPlace> Carte::getListeBatimentsPlaces()
@@ -114,14 +122,13 @@ void Carte::ajouterBatimentPlace(BatimentPlace bp)
 
 bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 {
-	vector<char> alphabet = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 	bool condition = true;
 	if (c.first < 0 || c.second < 0 || c.first > 999 || c.second > 999) {
 		cout << "Hors Carte" << endl;
 		return false;
 	}
 	else {
-		BatimentPlace bp(&b, c);
+		BatimentPlace bp(b, c);
 
 		int x, y;
 
@@ -145,11 +152,11 @@ bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 				y = briques[i].second + c.second;
 
 				if (bp.getBatiment().getSpecificite() < 0) {
-					if (bp.getBatiment().getSpecificite() > -10) 
+					if (bp.getBatiment().getSpecificite() > -10)
 					{
 						this->schema[x][y] = bp.getBatiment().getSpecificite() * 10;
 					}
-					else 
+					else
 					{
 						this->schema[x][y] = bp.getBatiment().getSpecificite();
 					}
@@ -164,8 +171,6 @@ bool Carte::placerBatiment(Batiment b, pair<int, int> c)
 						this->schema[x][y] = bp.getBatiment().getSpecificite() * 10;
 					}
 				}
-				//this->schema[x][y] = abs(bp.getBatiment().getSpecificite());
-				//this->schema[x][y] = 1;
 			}
 			this->ajouterBatimentPlace(bp);
 			return true;
@@ -333,6 +338,9 @@ void Carte::triBatimentUti() {
 
 void Carte::placerUtilitaire() {
 
+	int decLarg = this->calculLargMax();
+	int decHaut = this->calculHautMax();
+
 	unsigned int typeUtilitaire = 0;
 	unsigned int ancienTypeUtilitaire = 0;
 	unsigned int nbrUtilitairePlace = 0;
@@ -343,7 +351,7 @@ void Carte::placerUtilitaire() {
 		vector<int> temp = schema[i];
 		cout << "Etude de la ligne : " << i << endl;
 		for (unsigned int j = 0; j < cote; j++) {
-			char brique = temp[j];
+			int brique = temp[j];
 			pair<int, int> coordBrique;
 			coordBrique.first = i;
 			coordBrique.second = j;
@@ -352,7 +360,7 @@ void Carte::placerUtilitaire() {
 				for (typeUtilitaire = ancienTypeUtilitaire + 1; !(is_batimentPlace); typeUtilitaire++) {
 					if (typeUtilitaire == listeBatimentUtilitaireTriee.size()) typeUtilitaire = 0;
 					for (unsigned int k = 0; k < listeBatimentUtilitaireTriee[typeUtilitaire].size(); k++) {
-						if (coordBrique.first + listeBatimentUtilitaireTriee[typeUtilitaire][k].getHauteur() - 1 < cote && coordBrique.second + listeBatimentUtilitaireTriee[typeUtilitaire][k].getLargeur() - 1 < cote)
+						if (coordBrique.first < cote - decLarg && coordBrique.second < cote - decHaut)
 						{
 							if (placerBatiment(listeBatimentUtilitaireTriee[typeUtilitaire][k], coordBrique)) {
 								is_batimentPlace = true;

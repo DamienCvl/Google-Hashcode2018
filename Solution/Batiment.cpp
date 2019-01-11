@@ -10,6 +10,7 @@ Batiment::Batiment()
 	specificite = 0;
 	hauteur = 0;
 	largeur = 0;
+	ligne = 0;
 
 	briques = vector<pair<int, int>>(0);
 }
@@ -18,6 +19,7 @@ Batiment::Batiment(const int spe, const int h, const int l)
 {
 	specificite = spe;
 	hauteur = h;
+	ligne = 0;
 	largeur = l;
 
 	briques = vector<pair<int, int>>(0);
@@ -28,6 +30,7 @@ Batiment::Batiment(const Batiment &b)
 	specificite = b.specificite;
 	hauteur = b.hauteur;
 	largeur = b.largeur;
+	ligne = b.ligne;
 
 	briques = b.briques;
 }
@@ -37,10 +40,23 @@ Batiment Batiment::operator=(const Batiment &b)
 	specificite = b.specificite;
 	hauteur = b.hauteur;
 	largeur = b.largeur;
+	ligne = b.ligne;
 
 	briques = b.briques;
 
-	return *this;
+	return * this;
+}
+
+bool Batiment::operator==(const Batiment & b)
+{
+	if (this->specificite == b.specificite && this->hauteur == b.hauteur && this->largeur == b.largeur && this->briques == b.briques)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 Batiment::~Batiment()
@@ -50,7 +66,7 @@ Batiment::~Batiment()
 
 void Batiment::ajouterBrique(pair<int, int> br)
 {
-	auto it = briques.end();												//Placement d'un itÃ©rateur au bout de notre vecteur de briques
+	auto it = briques.end();												//Placement d'un itérateur au bout de notre vecteur de briques
 	briques.insert(it, br);													//Ajout d'une nouvelle brique au vecteur
 }
 
@@ -91,7 +107,17 @@ int Batiment::getSpecificite() const
 	return specificite;
 }
 
+int Batiment::getLigne()
+{
+	return ligne;
+}
+
 vector<pair<int, int>> Batiment::getBriques()
 {
 	return briques;
+}
+
+void Batiment::setLigne(int li)
+{
+	this->ligne = li;
 }

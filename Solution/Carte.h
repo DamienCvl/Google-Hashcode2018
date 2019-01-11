@@ -11,29 +11,31 @@ class Carte																						//Un objet "Carte" est un objet possèdant une 
 																								//rescencant chaque batiment qui peut être placé sur celle-ci ainsi qu'une liste d'objet "BatimentPlace"
 																								//rescencant chaque batiment qui a été placé sur celle-ci.
 {
-private:
+  private:
 	vector<vector<int>>				schema;
 	vector<Batiment>				listeBatiments;												//Liste d'objets "Batiments" plaçables sur la carte (provenant de la lecture du fichier en question)
 	vector<BatimentPlace>			listeBatimentsPlaces;										//Liste d'objets "BatimentPlace" placés sur la carte (provenant de la liste ci-dessus)
-	vector<pair<Batiment, float>>	listeCoeffResidentiel;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
-	vector<pair<Batiment, float>>	listeCoeffUtilitaire;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
+	vector<pair<Batiment,float>>	listeCoeffResidentiel;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
+	vector<pair<Batiment,float>>	listeCoeffUtilitaire;										//Liste des coefficients de chaque batiment pour mesurer leur utilité
 
 	vector<Batiment>				listeUtilitaire;
 	vector<vector<Batiment>>		listeBatimentUtilitaireTriee;
 	int cote;
 
-public:
+  public:
 	Carte();																					//Constructeur par défaut
 	Carte(int cote);																			//Constructeur
 	Carte(const Carte &);																		//Constructeur de recopie
 	~Carte();																					//Destructeur par défaut
-
+	
 	void toString();																			//Affichage de la Carte
 	void toFile();																				//Ecriture de la Carte
-	void toOut();
+	void toOut();																				//Fichier de sortie
 
 	vector<Batiment>				getListeBatiments();
 	void							setListeBatiments(vector<Batiment> lBatiments);
+
+	void							ajouterLignes();
 
 	vector<BatimentPlace>			getListeBatimentsPlaces();
 
@@ -45,7 +47,7 @@ public:
 
 	bool							placerBatimentOpti();
 	void							placerUtilitaire();
-
+	
 	void							calculCoeff(vector<Batiment> a);												//Calcul le score que pourrait rapporter chaque batiment. 
 	void							afficherBatCoeff();
 	void							triBatimentRes();

@@ -4,30 +4,23 @@
 
 #include "Carte.h"
 #include "InputReader.hpp"
+#include "scoreCalculator.hpp"
+
 
 using namespace std;
 
 int main() {
+	/*InputInformation infos = InputReader::readInputFile("..\\Maps\\b_short_walk.in");
+	Carte carte(infos.getHauteur());
 
-	InputInformation infos = InputReader::readInputFile("../Maps/b_short_walk.in");
-
-	cout << "\n" << "Affichage des batiments de la fonction de DEMS : " << endl;
-
-	/*for (unsigned int i = 0; i < infos.getBatimentsUtilisables().size(); i++)
-	{
-		Batiment btmp = infos.getBatimentAt(i);
-		btmp.toString();
-	}*/
-
-	Carte carte(infos.getLargeur());
-
-	carte.calculCoeff(infos.getBatimentsUtilisables());
 	carte.setListeBatiments(infos.getBatimentsUtilisables());
+	carte.calculCoeff(carte.getListeBatiments());
+
 	carte.placerBatimentOpti();
-	
 	carte.placerUtilitaire();
 
-	//carte.toOut();
-
+	//carte.toFile();
+	carte.toOut();*/
+	calculateScoreFromFiles("..\\Maps\\b_short_walk.out", "..\\Maps\\b_short_walk.in");
 	return 0;
 }
